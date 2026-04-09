@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindCare | Teen Depression Detection</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-brain"></i> Mind<span>Care</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#detection">Detection</a></li>
+            <li><a href="#history">History</a></li>
+        </ul>
+        <div class="hamburger">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="home-section">
+        <div class="home-content">
+            <div class="badge">AI-Powered Analysis</div>
+            <h1>Understanding <span class="gradient-text">Teen Mental Health</span> Through AI</h1>
+            <p>A demonstration project for detecting signs of depression using simulated text sentiment and facial expression analysis.</p>
+            <div class="home-buttons">
+                <a href="#detection" class="btn btn-primary">Start Analysis <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="#about" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+        <div class="home-visual">
+            <div class="glass-card hero-card">
+                <i class="fa-solid fa-heart-pulse icon-large pulse-animation"></i>
+                <h3>Mental Well-being Matters</h3>
+                <p>Early detection is the first step towards getting the right support and care.</p>
+            </div>
+        </div>
+        <div class="background-elements">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="section-header">
+            <h2>How It Works</h2>
+            <p>Our simulation uses two key modalities to estimate depression levels.</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-card glass-card">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-align-left"></i>
+                </div>
+                <h3>Textual Sentiment Analysis</h3>
+                <p>By analyzing the words you use to express your feelings, the system searches for patterns commonly associated with different mood states. Words expressing fatigue, sadness, or isolation impact the analysis.</p>
+            </div>
+            <div class="about-card glass-card">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-face-smile"></i>
+                </div>
+                <h3>Facial Expression Analysis</h3>
+                <p>Facial analysis algorithms detect micro-expressions and general facial features to classify emotions into categories like neutral, happy, sad, or angry.</p>
+            </div>
+            <div class="about-card glass-card">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <h3>Technologies Used</h3>
+                <p>HTML5, CSS3, Vanilla JavaScript, and Chart.js. <em>Note: This is a frontend demonstration simulating backend ML predictions.</em></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detection Section -->
+    <section id="detection" class="detection-section">
+        <div class="section-header">
+            <h2>Detection Center</h2>
+            <p>Share your current thoughts and provide a facial image for analysis.</p>
+        </div>
+        
+        <div class="detection-container glass-card">
+            <form id="analysis-form">
+                <div class="form-group">
+                    <label for="text-input">How are you feeling today?</label>
+                    <textarea id="text-input" placeholder="Express your thoughts freely... (e.g., 'I feel really happy today' or 'I feel so tired and lonely lately')" required></textarea>
+                    <span class="error-message" id="text-error">Please enter at least a few words describing your feelings.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>Real-Time Facial Analysis (Webcam Source)</label>
+                    <div class="camera-wrapper" id="camera-wrapper">
+                        <video id="webcam" autoplay playsinline muted class="hidden"></video>
+                        <div class="camera-placeholder" id="camera-placeholder">
+                            <i class="fa-solid fa-camera"></i>
+                            <p>Enable camera for real-time expression tracking</p>
+                            <button type="button" class="btn btn-secondary btn-sm" id="start-cam-btn">Start Camera</button>
+                        </div>
+                    </div>
+                    <span class="error-message" id="camera-error">Please start the camera for facial analysis.</span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" id="analyze-btn">
+                    <span class="btn-text">Analyze Now</span>
+                    <div class="spinner hidden" id="spinner"></div>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Result Section (Initially Hidden) -->
+    <section id="result" class="result-section hidden">
+        <div class="section-header">
+            <h2>Analysis Results</h2>
+            <p>Here is what our simulated AI detected.</p>
+        </div>
+        
+        <div class="results-dashboard">
+            <!-- Left Side: Summary Cards -->
+            <div class="results-summary">
+                <div class="result-card glass-card">
+                    <h4>Overall Depression Level</h4>
+                    <h2 id="depression-level" class="result-value">...</h2>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="depression-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="results-grid-2">
+                    <div class="result-card glass-card">
+                        <i class="fa-regular fa-comment-dots"></i>
+                        <h4>Text Sentiment</h4>
+                        <div id="text-sentiment" class="sub-result">...</div>
+                    </div>
+                    <div class="result-card glass-card">
+                        <i class="fa-regular fa-face-frown-open"></i>
+                        <h4>Facial Emotion</h4>
+                        <div id="facial-emotion" class="sub-result">...</div>
+                    </div>
+                </div>
+                
+                <div class="result-card glass-card confidence-card">
+                    <h4>Confidence Score</h4>
+                    <div class="confidence-circle">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg"
+                                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="circle" id="confidence-circle-path" stroke-dasharray="0, 100"
+                                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        </svg>
+                        <div class="percentage" id="confidence-score">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Chart Visualization -->
+            <div class="results-chart glass-card">
+                <h3>Emotion Probabilities</h3>
+                <div class="chart-container">
+                    <canvas id="resultsChart"></canvas>
+                </div>
+                <div class="result-action">
+                    <button class="btn btn-secondary" onclick="resetForm()">New Analysis</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations Block -->
+        <div class="tips-container glass-card" style="margin-top: 2rem;">
+            <h3><i class="fa-solid fa-lightbulb" style="color: var(--level-mod)"></i> Recommended Action Steps</h3>
+            <ul id="tips-list" style="margin-top: 1rem; padding-left: 1.5rem; color: var(--text-muted); line-height: 1.8; font-size: 1.05rem;">
+                <!-- Tips dynamically injected here -->
+            </ul>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="history-section">
+        <div class="section-header">
+            <h2>Analysis History & Leaderboard</h2>
+            <p>Review your past simulated detection results and the top 3 highest risk scores.</p>
+        </div>
+        
+        <div class="history-layout">
+            <!-- Leaderboard -->
+            <div class="leaderboard-container glass-card">
+                <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-trophy text-mod"></i> Top 3 High-Risk</h3>
+                <div class="leaderboard-list" id="leaderboard-list">
+                    <p class="text-muted" style="text-align:center; margin-top:2rem;">Not enough data yet.</p>
+                </div>
+            </div>
+
+            <!-- Full History -->
+            <div class="history-container glass-card">
+                <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-clock-rotate-left"></i> Recent History</h3>
+                <div class="history-list" id="history-list">
+                    <div class="empty-history" id="empty-history">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <p>No analysis history yet. Go to Detection to get started.</p>
+                    </div>
+                    <!-- Dynamic history cards will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 MindCare Demo Project | Depression Detection Using Text & Facial Analysis</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
